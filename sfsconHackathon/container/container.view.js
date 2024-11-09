@@ -8,10 +8,6 @@ function renderView(deviceArr) {
             <img src="https://via.placeholder.com/40" alt="Website Logo" title="Website Logo">
         </div>
 
-        <section>
-            Generell:
-        </section>
-
         <div class="devices-container">
             ${deviceArr.map(d => renderDeviceCard(d)).join('')}
         </div>
@@ -21,7 +17,7 @@ function renderView(deviceArr) {
 
 function renderDeviceCard(device) {
     return `
-        <a href="device-details.html" class="device-box">
+        <a href="/detail?ip=${device.ip}&manu=${device.manufacture}" class="device-box">
             <div class="device-details">
                 <span class="device-ip">IP: ${device.ip}</span>
                 <span class="device-mac">MAC: ${device.mac}</span>
