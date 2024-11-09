@@ -2,7 +2,7 @@ const { exec } = require('child_process');
 
 async function fetchAndProcessCVEs(ip) {
 
-    operatingSystem = "Unbekanntes Betriebssystem";
+    operatingSystem = "Unknown OS";
 
     try {
         const nmapResult = await new Promise((resolve, reject) => {
@@ -16,7 +16,7 @@ async function fetchAndProcessCVEs(ip) {
         });
 
         const osMatch = nmapResult.match(/OS details: ([^\n]*)/);
-        operatingSystem = osMatch ? osMatch[1] : "Unbekanntes Betriebssystem";
+        operatingSystem = osMatch ? osMatch[1] : "Unknown OS";
     } catch (error) {
         console.error(error);
     }
@@ -27,13 +27,13 @@ async function fetchAndProcessCVEs(ip) {
         const response = await fetch(url);
 
         if (!response.ok) {
-            throw new Error(`HTTP-Fehler! Status: ${response.status}`);
+            throw new Error(`HTTP-Error! Status: ${response.status}`);
         }
         
         const data = await response.json();
         
         if (!data || !data.vulnerabilities) {
-            throw new Error("Leere oder ungültige Daten erhalten.");
+            throw new Error("Recieved empty or invalid data.");
         }
         
         const networkVulnerabilities = data.vulnerabilities
@@ -54,7 +54,7 @@ async function fetchAndProcessCVEs(ip) {
 
         return extractVulnerabilityData(networkVulnerabilities);
     } catch (error) {
-        console.error("Fehler beim Abrufen der Daten:", error);
+        console.error("Error retrieving data:", error);
     }
 }
 
