@@ -1,11 +1,20 @@
-/* General Reset */
+/* Top Bar */
+.top-bar {
+    width: 100%;
+    background-color: #143f7e;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Page Container */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
@@ -13,18 +22,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-}
-
-/* Top Bar */
-.top-bar {
-    width: 100%;
-    background-color: #007acc;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 10px 20px;
+    /*padding: 20px;*/
 }
 
 .top-bar h1 {
@@ -41,22 +39,22 @@ body {
     margin-left: 15px;
     cursor: pointer;
 }
+#icon {
+    width: 2.5%;
+    height: 2.5%;
+    margin-right: 15px;
+}
 
-/* Devices Container */
-.devices-container {
-    width: 100%;
-    max-width: 800px;
-    margin-top: 20px;
+.top-bar-container {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
 }
 
 /* Device Box */
-.device-box {
-    display: flex;
+.vulner-box {
+    width: 100%;
     justify-content: space-between;
-    align-items: center;
     padding: 15px 20px;
     background-color: #ffffff;
     border: 1px solid #ddd;
@@ -66,40 +64,43 @@ body {
     transition: background-color 0.2s;
     text-decoration: none;
     color: inherit;
+    text-align: left;
+    padding: 20px;ø
 }
 
-.device-box:hover {
-    background-color: #e0f7fa;
+.vulners-container {
+    justify-self: center;
+    width: 800px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+ 
 }
 
-.device-details {
+.vulners-details {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.device-ip {
+.vulner-id {
     font-weight: bold;
     font-size: 1.1em;
 }
 
-.device-mac {
-    font-size: 1.1em;
-    color: grey;
-}
-
-.device-manufacturer {
+.vulner-description {
     color: #555;
     font-size: 0.9em;
 }
 
-/* Media Queries */
-@media (max-width: 600px) {
-    .top-bar h1 {
-        font-size: 1.2em;
-    }
+.vulner-lastModified {
+    font-size: 1.1em;
+    color: grey;
+}
 
-    .device-box {
-        padding: 10px 15px;
-    }
+.vulner-status {
+    font-size: 1.1em;
+    color: grey;
 }

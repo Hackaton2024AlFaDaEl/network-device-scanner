@@ -17,7 +17,7 @@ function renderView(deviceArr) {
 
 function renderDeviceCard(device) {
     return `
-        <a href="device-details.html" class="device-box">
+        <a href="/detail?ip=${device.ip}" class="device-box">
             <div class="device-details">
                 <span class="device-ip">IP: ${device.ip}</span>
                 <span class="device-mac">MAC: ${device.mac}</span>
