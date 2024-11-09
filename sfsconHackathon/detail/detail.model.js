@@ -20,8 +20,12 @@ async function fetchAndProcessCVEs(ip) {
     } catch (error) {
         console.error(error);
     }
+
+    operatingSystem = operatingSystem.split(' ')[0];
     
     const url = `https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=${operatingSystem}&keywordExactMatch`;
+    console.log(url);
+
 
     try {
         const response = await fetch(url);
