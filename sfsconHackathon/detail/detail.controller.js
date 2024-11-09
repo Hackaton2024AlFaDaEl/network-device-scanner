@@ -6,8 +6,8 @@ function initDetail(req, res) {
     console.log(req.query);
 
     ip = req.query.ip;
-    manu = req.query.manu;
-    model.fetchAndProcessCVEs(manu).then(cve => {
+    
+    model.fetchAndProcessCVEs(ip).then(cve => {
         res.send(view.renderView(cve));
     });
 }

@@ -1,43 +1,61 @@
-// Funktion, um Schwachstellen von der API abzurufen und zu filtern
-async function fetchAndProcessCVEs(keyword) {
-  // Ersetze Leerzeichen durch %20
-  keyword = keyword.split(' ')[0];
-  
-  const url = `https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=${keyword}&keywordExactMatch`;
+const { exec } = require('child_process');
 
-try {
-    const response = await fetch(url);
+async function fetchAndProcessCVEs(ip) {
 
-    if (!response.ok) {
-        throw new Error(`HTTP-Fehler! Status: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    
-    if (!data || !data.vulnerabilities) {
-        throw new Error("Leere oder ungültige Daten erhalten.");
-    }
-    
-    const networkVulnerabilities = data.vulnerabilities
-        .filter(vuln => 
-            vuln.cve.metrics &&
-            vuln.cve.metrics.cvssMetricV2 &&
-            vuln.cve.metrics.cvssMetricV2.some(metric => 
-                metric.cvssData.accessVector === "NETWORK"
-            ) &&
-            new Date(vuln.cve.lastModified).getFullYear() >= 2018
-        )
-        .sort((a, b) => {
-            const scoreA = (a.cve.metrics.cvssMetricV2 && a.cve.metrics.cvssMetricV2[0]?.cvssData?.baseScore) || 0;
-            const scoreB = (b.cve.metrics.cvssMetricV2 && b.cve.metrics.cvssMetricV2[0]?.cvssData?.baseScore) || 0;
-            
-            return scoreB - scoreA;
+    operatingSystem = "Unbekanntes Betriebssystem";
+
+    try {
+        const nmapResult = await new Promise((resolve, reject) => {
+            exec(`sudo nmap -O ${ip}`, (error, stdout, stderr) => {
+                if (error) {
+                    reject(`Fehler: ${stderr}`);
+                } else {
+                    resolve(stdout);
+                }
+            });
         });
 
-    return extractVulnerabilityData(networkVulnerabilities);
-} catch (error) {
-    console.error("Fehler beim Abrufen der Daten:", error);
-}
+        const osMatch = nmapResult.match(/OS details: ([^\n]*)/);
+        operatingSystem = osMatch ? osMatch[1] : "Unbekanntes Betriebssystem";
+    } catch (error) {
+        console.error(error);
+    }
+    
+    const url = `https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=${operatingSystem}&keywordExactMatch`;
+
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`HTTP-Fehler! Status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        if (!data || !data.vulnerabilities) {
+            throw new Error("Leere oder ungültige Daten erhalten.");
+        }
+        
+        const networkVulnerabilities = data.vulnerabilities
+            .filter(vuln => 
+                vuln.cve.metrics &&
+                vuln.cve.metrics.cvssMetricV2 &&
+                vuln.cve.metrics.cvssMetricV2.some(metric => 
+                    metric.cvssData.accessVector === "NETWORK"
+                ) &&
+                new Date(vuln.cve.lastModified).getFullYear() >= 2018
+            )
+            .sort((a, b) => {
+                const scoreA = (a.cve.metrics.cvssMetricV2 && a.cve.metrics.cvssMetricV2[0]?.cvssData?.baseScore) || 0;
+                const scoreB = (b.cve.metrics.cvssMetricV2 && b.cve.metrics.cvssMetricV2[0]?.cvssData?.baseScore) || 0;
+                
+                return scoreB - scoreA;
+            });
+
+        return extractVulnerabilityData(networkVulnerabilities);
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Daten:", error);
+    }
 }
 
 // Funktion, um die relevanten Daten zu extrahieren
@@ -60,6 +78,6 @@ function extractVulnerabilityData(jsonData) {
   });
 }
 
-export { fetchAndProcessCVEs };
+module.exports = { fetchAndProcessCVEs };
 
 
