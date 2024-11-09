@@ -6,6 +6,11 @@ const container = require('./container/container.controller');
 const detail = require('./detail/detail.controller');
 const bodyParser = require('body-parser');
 
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+    // Hier kannst du zusätzliche Maßnahmen ergreifen, z.B. den Server neu starten oder Benachrichtigungen senden
+});
+
 // Use Express to serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
