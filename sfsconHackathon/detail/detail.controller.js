@@ -3,8 +3,6 @@ const view = require("./detail.view");
 const model = require("./detail.model");
 
 function initDetail(req, res) {
-    console.log(req.query);
-
     ip = req.query.ip;
     
     model.fetchAndProcessCVEs(ip).then(cve => {
