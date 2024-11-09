@@ -5,9 +5,9 @@ function renderView(vulnerArr) {
 
     return renderHTML("detail.css", `
         <link rel="stylesheet" href="./detail.css" type="text/css">
-        <div class="top-bar">
-            <h1>NDS (Network Device Scanner)</h1>
-            <img src="https://via.placeholder.com/40" alt="Website Logo" title="Website Logo">
+       <div class="top-bar">
+            <img class="top-bar" src="header.png">
+            <img id="icon" src="icon.png">
         </div>
 
         <div class="vulners-container">
