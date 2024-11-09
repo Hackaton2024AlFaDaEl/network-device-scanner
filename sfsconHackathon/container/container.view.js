@@ -4,8 +4,8 @@ function renderView(deviceArr) {
     return renderHTML("container.css", `
         <link rel="stylesheet" href="./container.css" type="text/css">
         <div class="top-bar">
-            <h1>NDS (Network Device Scanner)</h1>
-            <img src="https://via.placeholder.com/40" alt="Website Logo" title="Website Logo">
+            <img class="top-bar" src="header.png">
+            <img id="icon" src="icon.png">
         </div>
 
         <div class="devices-container">
@@ -20,8 +20,8 @@ function renderDeviceCard(device) {
         <a href="/detail?ip=${device.ip}&manu=${device.manufacture}" class="device-box">
             <div class="device-details">
                 <span class="device-ip">IP: ${device.ip}</span>
-                <span class="device-mac">MAC: ${device.mac}</span>
-                <span class="device-manufacturer">Manufacturer: ${device.manufacture}</span>
+                <span class="device-mac">Manufacturer: ${device.manufacture}</span>
+                <span class="device-manufacturer">MAC: ${device.mac}</span>
             </div>
         </a>
     `;
