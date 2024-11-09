@@ -7,7 +7,7 @@ const port = 3000; // You can choose any port
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Route for the root URL ("/") to serve the HTML file
-app.get('/', (req, res) => {
+app.get('/', (redq, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
