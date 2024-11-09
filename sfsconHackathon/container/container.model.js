@@ -84,6 +84,8 @@ async function scanNetwork() {
     const broadcast = calcBroadcastAddress(networkBase.address, networkBase.netmask);
     
     let currentIp = networkStart;
+    let promises = [];
+
     while (currentIp !== broadcast) {
         promises.push(new Promise((resolve) => {
             ping.promise.probe(currentIp, { timeout: 1 }).then(async (res) => {
