@@ -51,10 +51,41 @@
         .scan-button:hover {
             background-color: #e6b800;
         }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .circle {
+            width: 50px;
+            visibility: hidden;
+        }
+
+        .rotate {
+            visibility: initial;
+            width: 50px;
+            transform: rotate(45deg);
+            animation: load 1s steps(16) infinite;
+        }
+        @keyframes load {
+            from {transform: rotate(0turn);}
+            to   {transform: rotate(1turn);}
+        }
     </style>
 </head>
+<script>
+    function clickEvent() {
+        document.getElementById("1")
+            .setAttribute("class", "rotate");
+    }
+</script>
 <body>
-    <a href="/list" class="scan-button">SCAN</a>
-
+    <div class="container">
+        <a href="/list" class="scan-button" onclick="clickEvent()">Start</a>
+        <img src="circle.png" class="circle" id="1">
+    </div>
 </body>
 </html>

@@ -86,6 +86,8 @@ async function scanNetwork() {
     let currentIp = networkStart;
     let promises = [];
 
+    // TODO bo irgenta Promise gibs a Problem bitte onschaugen!!!
+
     while (currentIp !== broadcast) {
         promises.push(new Promise((resolve) => {
             ping.promise.probe(currentIp, { timeout: 1 }).then(async (res) => {
