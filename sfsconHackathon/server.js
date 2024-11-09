@@ -11,9 +11,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Route for the root URL ("/") to serve the HTML file
-app.get('/', (req, res) => {
+app.get('/list', (req, res) => {
     container.startNetwork(req, res);
 });
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'))
+})
 
 // Start the server and listen on the specified port and 0.0.0.0 address
 app.listen(port, '0.0.0.0', () => {
