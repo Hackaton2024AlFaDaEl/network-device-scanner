@@ -1,0 +1,105 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Page Container */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Top Bar */
+.top-bar {
+    width: 100%;
+    background-color: #007acc;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 20px;
+}
+
+.top-bar h1 {
+    flex-grow: 1;
+    font-size: 1.5em;
+    color: #ffffff;
+    margin-left: 20px;
+}
+
+.top-bar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+/* Devices Container */
+.devices-container {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Device Box */
+.device-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-decoration: none;
+    color: inherit;
+}
+
+.device-box:hover {
+    background-color: #e0f7fa;
+}
+
+.device-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.device-ip {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.device-mac {
+    font-size: 1.1em;
+    color: grey;
+}
+
+.device-manufacturer {
+    color: #555;
+    font-size: 0.9em;
+}
+
+/* Media Queries */
+@media (max-width: 600px) {
+    .top-bar h1 {
+        font-size: 1.2em;
+    }
+
+    .device-box {
+        padding: 10px 15px;
+    }
+}
