@@ -5,7 +5,10 @@ const model = require("./container.model");
 function startNetwork(req, res) {
     model.scanNetwork()
         .then(next => res.send(view.renderView(next)))
-        .catch(next => res.redirect("/"));
+        .catch(err => {
+            console.error(err);
+            res.redirect("/");
+        });
 }
 
 module.exports = { startNetwork };
